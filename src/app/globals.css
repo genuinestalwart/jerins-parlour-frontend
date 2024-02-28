@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	* {
+		@apply box-border transition-all;
+		&::-webkit-scrollbar {
+			@apply h-2 w-2;
+		}
+		&::-webkit-scrollbar-thumb {
+			@apply bg-primary;
+		}
+	}
+	.bg-white {
+		@apply text-secondary;
+	}
+	.bg-primary {
+		@apply text-white;
+	}
+}
