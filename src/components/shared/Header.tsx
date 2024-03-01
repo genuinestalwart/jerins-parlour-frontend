@@ -53,7 +53,7 @@ const Header = () => {
 					{navItems}
 				</div>
 
-				<Button asChild className='md:px-6 lg:px-8'>
+				<Button asChild>
 					<Link href='/login'>Login</Link>
 				</Button>
 

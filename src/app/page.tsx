@@ -11,7 +11,7 @@ const HomePage = () => {
 		<>
 			<Header />
 
-			<main>
+			<main className='bg-home'>
 				<Hero />
 				<Services />
 				<Summary />
