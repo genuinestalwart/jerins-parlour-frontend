@@ -18,14 +18,24 @@ export const formFields: Item[] = [
 	{
 		className: "",
 		element: (field: any) => (
-			<Input autoComplete='on' {...field} placeholder='Email Address' />
+			<Input
+				autoComplete='on'
+				{...field}
+				placeholder='Email Address'
+				type='email'
+			/>
 		),
 		name: "email",
 	},
 	{
 		className: "",
 		element: (field: any) => (
-			<Input autoComplete='on' {...field} placeholder='Phone Number' />
+			<Input
+				autoComplete='on'
+				{...field}
+				placeholder='Phone Number'
+				type='tel'
+			/>
 		),
 		name: "phone",
 	},

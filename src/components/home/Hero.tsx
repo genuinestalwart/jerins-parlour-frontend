@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Hero = () => {
 	return (
-		<section className='flex flex-col md:flex-row items-center 2xl:max-h-[810px] min-h-screen mx-auto pt-24 pb-8 md:pb-0 space-y-8 md:space-y-0 w-4/5 md:w-[90%]'>
+		<section className='flex flex-col md:flex-row items-center 2xl:max-h-[810px] min-h-[calc(100vh_-_6rem)] mx-auto pb-8 md:pb-0 space-y-8 md:space-y-0 w-4/5 md:w-[90%]'>
 			<Image
 				alt='hero'
 				className='h-auto mx-auto md:order-1 md:w-1/3'
