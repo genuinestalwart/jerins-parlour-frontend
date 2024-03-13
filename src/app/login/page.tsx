@@ -1,14 +1,27 @@
 "use client";
 import Header from "@/components/shared/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { z } from "zod";
 import LoginForm from "@/components/login/LoginForm";
 import LoginWith from "@/components/login/LoginWith";
+import useAuth from "@/hooks/useAuth";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 const tabs = ["login", "register"];
 
 const LoginPage = () => {
 	const [activeTab, setActiveTab] = useState("login");
+	const router = useRouter();
+	const {
+		loading,
+		loginUser,
+		registerUser,
+		sendEmailVerification,
+		setLoading,
+		updateProfile,
+		user,
+	} = useAuth();
 	const login = activeTab === "login";
 
 	const formSchema = z.object(
@@ -24,7 +37,24 @@ const LoginPage = () => {
 			  }
 	);
 
-	const onSubmit = (values: z.infer<typeof formSchema>) => {};
+	const onSubmit = async (values: z.infer<typeof formSchema>) => {
+		try {
+			if (login) {
+				await loginUser(values.email, values.password);
+			} else {
+				const res = await registerUser(values.email, values.password);
+				await updateProfile(res.user, { displayName: values.username });
+				await sendEmailVerification(res.user);
+			}
+		} catch (error: any) {
+			toast(error.code.split("/")[1].replaceAll("-", " "));
+			setLoading(false);
+		}
+	};
+
+	useEffect(() => {
+		user && router.push("/dashboard");
+	}, [router, user]);
 
 	return (
 		<>
@@ -40,6 +70,7 @@ const LoginPage = () => {
 							<LoginForm
 								activeTab={activeTab}
 								formSchema={formSchema}
+								loading={loading}
 								onSubmit={onSubmit}
 								setActiveTab={setActiveTab}
 							/>

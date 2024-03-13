@@ -18,7 +18,8 @@ const NavLink = ({
 		<Link
 			className={className(href === usePathname())}
 			href={href}
-			onClick={onClick}>
+			onClick={onClick}
+			scroll={false}>
 			{children}
 		</Link>
 	);

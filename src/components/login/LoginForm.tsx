@@ -6,26 +6,23 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormMessage,
-} from "@/components/ui/form";
-import { formFields } from "@/lib/LoginForm";
+import { Form, FormField } from "@/components/ui/form";
+import { formFields } from "@/utilities/LoginForm";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Spinner from "@/components/shared/Spinner";
 
 const LoginForm = ({
 	activeTab,
 	formSchema,
+	loading,
 	onSubmit,
 	setActiveTab,
 }: {
 	activeTab: string;
 	formSchema: any;
+	loading: boolean;
 	onSubmit: SubmitHandler<any>;
 	setActiveTab: Function;
 }) => {
@@ -37,6 +34,10 @@ const LoginForm = ({
 			: { email: "", password: "", username: "" },
 		resolver: zodResolver(formSchema),
 	});
+
+	const handleTab = () => {
+		!loading && setActiveTab(login ? "register" : "login");
+	};
 
 	return (
 		<Form {...form}>
@@ -55,30 +56,29 @@ const LoginForm = ({
 								key={i}
 								name={item.name}
 								render={({ field }) => (
-									<FormItem>
-										<FormControl>
-											{item.element(field)}
-										</FormControl>
-										<FormMessage />
-									</FormItem>
+									<>{item.element(field, loading)}</>
 								)}
 							/>
 						))}
 					</CardContent>
 
 					<CardFooter className='block space-y-4'>
-						<Button className='block w-full' type='submit'>
-							{login ? "Login" : "Register"}
+						<Button
+							className='flex items-center space-x-2 w-full'
+							disabled={loading}
+							type='submit'>
+							{loading && (
+								<Spinner className='fill-white h-6 w-6' />
+							)}
+							<span>{login ? "Login" : "Register"}</span>
 						</Button>
 
 						<p className='font-medium text-center text-sm'>
 							{login ? "Don't" : "Already"} have an account?{" "}
 							<span
 								className='cursor-pointer text-primary hover:underline underline-offset-1'
-								onClick={() =>
-									setActiveTab(login ? "register" : "login")
-								}>
-								{login ? "Login to your" : "Create an"} account
+								onClick={() => handleTab()}>
+								{login ? "Create an" : "Login to your"} account
 							</span>
 						</p>
 					</CardFooter>

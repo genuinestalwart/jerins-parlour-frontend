@@ -2,16 +2,10 @@
 import Image from "next/image";
 import logo from "@/assets/shared/logo.png";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import NavLink from "@/components/shared/NavLink";
 import { useState } from "react";
 import { Menu } from "lucide-react";
-import {
-	Drawer,
-	DrawerContent,
-	DrawerOverlay,
-	DrawerPortal,
-} from "@/components/ui/drawer";
+import Navbar from "@/components/shared/Navbar";
 
 const navLinks = [
 	{ text: "Home", path: "/" },
@@ -47,26 +41,7 @@ const Header = () => {
 			</Button>
 
 			<Image alt='logo' className='h-1/2 w-auto' priority src={logo} />
-
-			<nav className='flex items-center space-x-8'>
-				<div className='md:flex hidden items-center space-x-8'>
-					{navItems}
-				</div>
-
-				<Button asChild>
-					<Link href='/login'>Login</Link>
-				</Button>
-
-				<Drawer onOpenChange={setOpen} open={open}>
-					<DrawerPortal>
-						<DrawerOverlay />
-
-						<DrawerContent className='py-8'>
-							{navItems}
-						</DrawerContent>
-					</DrawerPortal>
-				</Drawer>
-			</nav>
+			<Navbar navItems={navItems} open={open} setOpen={setOpen} />
 		</header>
 	);
 };

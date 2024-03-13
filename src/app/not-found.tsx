@@ -14,7 +14,9 @@ const NotFoundPage = () => {
 			/>
 
 			<Button asChild className='max-w-fit mx-auto'>
-				<Link href='/'>Back to Home</Link>
+				<Link href='/' scroll={false}>
+					Back to Home
+				</Link>
 			</Button>
 		</div>
 	);

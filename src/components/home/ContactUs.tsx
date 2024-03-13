@@ -10,7 +10,7 @@ import {
 	FormItem,
 	FormMessage,
 } from "@/components/ui/form";
-import { formFields } from "@/lib/ContactUs";
+import { formFields } from "@/utilities/ContactUs";
 
 const formSchema = z.object({
 	email: z.coerce.string().email(),
