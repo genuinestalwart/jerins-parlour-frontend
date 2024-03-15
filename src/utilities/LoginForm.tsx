@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 
 interface Item {
 	element: (field: any, loading: boolean) => React.ReactNode;
-	name: "email" | "password" | "username";
+	name: "email" | "password" | "name";
 }
 
 const InputWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -59,7 +59,7 @@ export const formFields = (value: string) => {
 					/>
 				</InputWrapper>
 			),
-			name: "username",
+			name: "name",
 		});
 	}
 

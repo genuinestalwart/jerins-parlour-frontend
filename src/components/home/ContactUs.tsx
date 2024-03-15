@@ -16,12 +16,12 @@ const formSchema = z.object({
 	email: z.coerce.string().email(),
 	message: z.coerce.string().min(32).max(512),
 	phone: z.coerce.string(),
-	username: z.coerce.string().min(3).max(32),
+	name: z.coerce.string().min(3).max(32),
 });
 
 const ContactUs = () => {
 	const form = useForm<z.infer<typeof formSchema>>({
-		defaultValues: { email: "", message: "", phone: "", username: "" },
+		defaultValues: { email: "", message: "", phone: "", name: "" },
 		resolver: zodResolver(formSchema),
 	});
 

@@ -8,6 +8,8 @@ import LoginWith from "@/components/login/LoginWith";
 import useAuth from "@/hooks/useAuth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import useAdmin from "@/hooks/useAdmin";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 const tabs = ["login", "register"];
 
 const LoginPage = () => {
@@ -22,6 +24,8 @@ const LoginPage = () => {
 		updateProfile,
 		user,
 	} = useAuth();
+	const axiosSecure = useAxiosSecure();
+	const [isAdmin, isLoading] = useAdmin();
 	const login = activeTab === "login";
 
 	const formSchema = z.object(
@@ -33,7 +37,7 @@ const LoginPage = () => {
 			: {
 					email: z.coerce.string().email(),
 					password: z.coerce.string().min(8).max(32),
-					username: z.coerce.string().min(3).max(32),
+					name: z.coerce.string().min(3).max(32),
 			  }
 	);
 
@@ -42,9 +46,12 @@ const LoginPage = () => {
 			if (login) {
 				await loginUser(values.email, values.password);
 			} else {
-				const res = await registerUser(values.email, values.password);
-				await updateProfile(res.user, { displayName: values.username });
+				const { name, password } = values;
+				const res = await registerUser(values.email, password);
+				await updateProfile(res.user, { displayName: name });
 				await sendEmailVerification(res.user);
+				const { email, uid } = res.user;
+				await axiosSecure.post("/users", { email, name, uid });
 			}
 		} catch (error: any) {
 			toast(error.code.split("/")[1].replaceAll("-", " "));
@@ -53,14 +60,14 @@ const LoginPage = () => {
 	};
 
 	useEffect(() => {
-		user && router.push("/dashboard");
-	}, [router, user]);
+		user && !isLoading && router.push(isAdmin ? "/admin" : "/user");
+	}, [isAdmin, isLoading, router, user]);
 
 	return (
 		<>
 			<Header />
 
-			<main className='pt-24'>
+			<main className='pt-24 pb-12'>
 				<Tabs
 					className='mx-auto w-2/5'
 					defaultValue='login'
@@ -70,7 +77,7 @@ const LoginPage = () => {
 							<LoginForm
 								activeTab={activeTab}
 								formSchema={formSchema}
-								loading={loading}
+								loading={loading || isLoading}
 								onSubmit={onSubmit}
 								setActiveTab={setActiveTab}
 							/>

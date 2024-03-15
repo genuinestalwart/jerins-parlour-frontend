@@ -7,7 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "@smastrom/react-rating/style.css";
 import { cn } from "@/lib/utils";
-import ReduxProvider from "@/providers/ReduxProvider";
+import Providers from "@/components/shared/Providers";
 import { Toaster } from "@/components/ui/sonner";
 
 const poppins = Poppins({
@@ -31,10 +31,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 					"antialiased bg-white font-poppins",
 					poppins.variable
 				)}>
-				<ReduxProvider>
+				<Providers>
 					<div className='container min-h-screen'>{children}</div>
 					<Toaster />
-				</ReduxProvider>
+				</Providers>
 			</body>
 		</html>
 	);

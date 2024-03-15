@@ -3,7 +3,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 interface Item {
 	element: (field: any) => React.ReactNode;
-	name: "email" | "message" | "phone" | "username";
+	name: "email" | "message" | "phone" | "name";
 	className: string;
 }
 
@@ -13,7 +13,7 @@ export const formFields: Item[] = [
 		element: (field: any) => (
 			<Input autoComplete='on' {...field} placeholder='Full Name' />
 		),
-		name: "username",
+		name: "name",
 	},
 	{
 		className: "",

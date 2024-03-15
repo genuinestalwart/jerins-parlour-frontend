@@ -31,7 +31,7 @@ const LoginForm = ({
 	const form = useForm<z.infer<typeof formSchema>>({
 		defaultValues: login
 			? { email: "", password: "" }
-			: { email: "", password: "", username: "" },
+			: { email: "", password: "", name: "" },
 		resolver: zodResolver(formSchema),
 	});
 

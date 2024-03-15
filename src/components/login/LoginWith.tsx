@@ -4,22 +4,21 @@ import Image from "next/image";
 import google from "@/assets/icons/google.png";
 import useAuth from "@/hooks/useAuth";
 import { toast } from "sonner";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 const LoginWith = () => {
 	const { loginWithGoogle, setLoading } = useAuth();
+	const axiosSecure = useAxiosSecure();
 
 	const handleGoogle = async () => {
-		loginWithGoogle().catch(({ code }) => {
-			toast(code.split("/")[1].replaceAll("-", " "));
+		try {
+			const res = await loginWithGoogle();
+			const { email, displayName: name, uid } = res.user;
+			await axiosSecure.post("/users", { email, name, uid });
+		} catch (error: any) {
+			toast(error.code.split("/")[1].replaceAll("-", " "));
 			setLoading(false);
-		});
-
-		// try {
-		// 	await loginWithGoogle();
-		// } catch (error: any) {
-		// 	toast(error.code.split("/")[1].replaceAll("-", " "));
-		// 	setLoading(false);
-		// }
+		}
 	};
 
 	return (

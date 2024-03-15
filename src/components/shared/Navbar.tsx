@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/drawer";
 import useAuth from "@/hooks/useAuth";
 import Spinner from "@/components/shared/Spinner";
+import useAdmin from "@/hooks/useAdmin";
 
 const Navbar = ({
 	navItems,
@@ -19,6 +20,7 @@ const Navbar = ({
 	setOpen: (open: boolean) => void;
 }) => {
 	const { loading, logoutUser, user } = useAuth();
+	const [, isLoading] = useAdmin();
 
 	return (
 		<nav className='flex items-center space-x-8'>
@@ -26,7 +28,7 @@ const Navbar = ({
 				{navItems}
 			</div>
 
-			{loading ? (
+			{loading || isLoading ? (
 				<Spinner className='fill-primary h-8 w-8' />
 			) : user ? (
 				<Button onClick={() => logoutUser()}>Logout</Button>

@@ -9,7 +9,7 @@ const Testimonials = () => {
 	const axiosPublic = useAxiosPublic();
 
 	useEffect(() => {
-		axiosPublic.get("/reviews.json").then(({ data }) => setReviews(data));
+		axiosPublic.get("/reviews").then(({ data }) => setReviews(data));
 	}, [axiosPublic]);
 
 	return (
