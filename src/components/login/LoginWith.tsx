@@ -5,8 +5,9 @@ import google from "@/assets/icons/google.png";
 import useAuth from "@/hooks/useAuth";
 import { toast } from "sonner";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
+import Spinner from "@/components/shared/Spinner";
 
-const LoginWith = () => {
+const LoginWith = ({ loading }: { loading: boolean }) => {
 	const { loginWithGoogle, setLoading } = useAuth();
 	const axiosSecure = useAxiosSecure();
 
@@ -22,7 +23,7 @@ const LoginWith = () => {
 	};
 
 	return (
-		<div className='mx-auto px-12 w-2/5'>
+		<div className='mx-auto md:px-12 w-4/5 md:w-2/5'>
 			<div className='flex items-center justify-evenly py-4'>
 				<Separator className='w-2/5' />
 				<span>Or</span>
@@ -31,10 +32,12 @@ const LoginWith = () => {
 
 			<Button
 				className='flex rounded-full space-x-2 w-full'
+				disabled={loading}
 				onClick={() => handleGoogle()}
 				variant='outline'>
 				<Image alt='google' className='h-full w-auto' src={google} />
 				<span>Continue With Google</span>
+				{loading && <Spinner className='fill-primary h-6 w-6' />}
 			</Button>
 		</div>
 	);

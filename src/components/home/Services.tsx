@@ -13,7 +13,7 @@ const serviceInfo = [
 	},
 	{
 		icon: services2,
-		title: "Hair Color & Styleing",
+		title: "Hair Color & Styling",
 		price: 99,
 		text: "Amazing flyers, social media posts and brand representations that would make your brand stand out.",
 	},

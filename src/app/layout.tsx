@@ -20,7 +20,7 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
 	description: "Beauty salon for every woman",
-	title: "Jerin's Parlour",
+	title: "Jerin's Parlour | Home",
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {

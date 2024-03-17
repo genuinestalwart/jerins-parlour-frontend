@@ -49,7 +49,7 @@ const LoginPage = () => {
 				const { name, password } = values;
 				const res = await registerUser(values.email, password);
 				await updateProfile(res.user, { displayName: name });
-				await sendEmailVerification(res.user);
+				// await sendEmailVerification(res.user);
 				const { email, uid } = res.user;
 				await axiosSecure.post("/users", { email, name, uid });
 			}
@@ -60,7 +60,9 @@ const LoginPage = () => {
 	};
 
 	useEffect(() => {
-		user && !isLoading && router.push(isAdmin ? "/admin" : "/user");
+		if (user && !isLoading) {
+			router.replace(isAdmin ? "/admin" : "/user", { scroll: false });
+		}
 	}, [isAdmin, isLoading, router, user]);
 
 	return (
@@ -69,7 +71,7 @@ const LoginPage = () => {
 
 			<main className='pt-24 pb-12'>
 				<Tabs
-					className='mx-auto w-2/5'
+					className='mx-auto w-4/5 md:w-2/5'
 					defaultValue='login'
 					value={activeTab}>
 					{tabs.map((item, i) => (
@@ -85,7 +87,7 @@ const LoginPage = () => {
 					))}
 				</Tabs>
 
-				<LoginWith />
+				<LoginWith loading={loading || isLoading} />
 			</main>
 		</>
 	);

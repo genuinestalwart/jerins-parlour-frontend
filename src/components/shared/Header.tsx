@@ -8,10 +8,10 @@ import { Menu } from "lucide-react";
 import Navbar from "@/components/shared/Navbar";
 
 const navLinks = [
-	{ text: "Home", path: "/" },
-	{ text: "Our Portfolio", path: "/portfolio" },
-	{ text: "Our Team", path: "/team" },
-	{ text: "Contact Us", path: "/contact-us" },
+	{ path: "/", text: "Home" },
+	{ path: "/portfolio", text: "Our Portfolio" },
+	{ path: "/team", text: "Our Team" },
+	{ path: "/contact-us", text: "Contact Us" },
 ];
 
 const Header = () => {

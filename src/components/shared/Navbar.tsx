@@ -20,12 +20,26 @@ const Navbar = ({
 	setOpen: (open: boolean) => void;
 }) => {
 	const { loading, logoutUser, user } = useAuth();
-	const [, isLoading] = useAdmin();
+	const [isAdmin, isLoading] = useAdmin();
+
+	const dashLink =
+		!loading && !isLoading && user ? (
+			<Link
+				className='hover:bg-primary md:hover:bg-transparent block font-medium mx-auto py-2 md:py-0 rounded-lg md:rounded-none text-center md:hover:text-secondary md:hover:underline underline-offset-2 w-4/5 md:w-auto'
+				href={isAdmin ? "/admin" : "/user"}
+				onClick={() => setOpen(false)}
+				scroll={false}>
+				Dashboard
+			</Link>
+		) : (
+			<></>
+		);
 
 	return (
 		<nav className='flex items-center space-x-8'>
 			<div className='md:flex hidden items-center space-x-8'>
 				{navItems}
+				{dashLink}
 			</div>
 
 			{loading || isLoading ? (
@@ -43,7 +57,10 @@ const Navbar = ({
 			<Drawer onOpenChange={setOpen} open={open}>
 				<DrawerPortal>
 					<DrawerOverlay />
-					<DrawerContent className='py-8'>{navItems}</DrawerContent>
+					<DrawerContent className='py-8'>
+						{navItems}
+						{dashLink}
+					</DrawerContent>
 				</DrawerPortal>
 			</Drawer>
 		</nav>

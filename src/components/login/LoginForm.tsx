@@ -70,6 +70,7 @@ const LoginForm = ({
 							{loading && (
 								<Spinner className='fill-white h-6 w-6' />
 							)}
+
 							<span>{login ? "Login" : "Register"}</span>
 						</Button>
 
