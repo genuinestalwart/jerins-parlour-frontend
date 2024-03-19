@@ -19,7 +19,7 @@ const LoginPage = () => {
 		loading,
 		loginUser,
 		registerUser,
-		sendEmailVerification,
+		// sendEmailVerification,
 		setLoading,
 		updateProfile,
 		user,
@@ -31,26 +31,27 @@ const LoginPage = () => {
 	const formSchema = z.object(
 		login
 			? {
-					email: z.coerce.string().email(),
-					password: z.coerce.string().min(8).max(32),
+					email: z.coerce.string().trim().email(),
+					password: z.coerce.string().trim().min(8).max(32),
 			  }
 			: {
-					email: z.coerce.string().email(),
-					password: z.coerce.string().min(8).max(32),
-					name: z.coerce.string().min(3).max(32),
+					email: z.coerce.string().trim().email(),
+					name: z.coerce.string().trim().min(3).max(32),
+					password: z.coerce.string().trim().min(8).max(32),
 			  }
 	);
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
+		const { email, name, password } = values;
+
 		try {
 			if (login) {
-				await loginUser(values.email, values.password);
+				await loginUser(email, password);
 			} else {
-				const { name, password } = values;
-				const res = await registerUser(values.email, password);
+				const res = await registerUser(email, password);
 				await updateProfile(res.user, { displayName: name });
 				// await sendEmailVerification(res.user);
-				const { email, uid } = res.user;
+				const { uid } = res.user;
 				await axiosSecure.post("/users", { email, name, uid });
 			}
 		} catch (error: any) {

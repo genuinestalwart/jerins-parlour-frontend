@@ -9,19 +9,19 @@ const serviceInfo = [
 		icon: services1,
 		title: "Anti Age Face Treatment",
 		price: 199,
-		text: "We craft stunning and amazing web UI, using a well drrafted UX to fit your product.",
+		text: "We craft stunning and amazing web UI, using a well-crafted UX to fit your product.",
 	},
 	{
 		icon: services2,
 		title: "Hair Color & Styling",
 		price: 99,
-		text: "Amazing flyers, social media posts and brand representations that would make your brand stand out.",
+		text: "Amazing flyers, social media posts, and brand representations that would make your brand stand out.",
 	},
 	{
 		icon: services3,
 		title: "Skin Care Treatment",
 		price: 299,
-		text: "With well written codes, we build amazing apps for all platforms, mobile and web apps in general.",
+		text: "With well-written codes, we build amazing apps for all platforms, including mobile and web apps in general.",
 	},
 ];
 

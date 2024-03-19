@@ -1,23 +1,23 @@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-interface Item {
+interface Field {
 	element: (field: any) => React.ReactNode;
 	name: "email" | "message" | "phone" | "name";
 	className: string;
 }
 
-export const formFields: Item[] = [
+export const formFields: Field[] = [
 	{
 		className: "md:col-span-2",
-		element: (field: any) => (
+		element: (field) => (
 			<Input autoComplete='on' {...field} placeholder='Full Name' />
 		),
 		name: "name",
 	},
 	{
 		className: "",
-		element: (field: any) => (
+		element: (field) => (
 			<Input
 				autoComplete='on'
 				{...field}
@@ -29,7 +29,7 @@ export const formFields: Item[] = [
 	},
 	{
 		className: "",
-		element: (field: any) => (
+		element: (field) => (
 			<Input
 				autoComplete='on'
 				{...field}
@@ -41,8 +41,8 @@ export const formFields: Item[] = [
 	},
 	{
 		className: "md:col-span-2",
-		element: (field: any) => (
-			<Textarea {...field} rows={5} placeholder='Your Message' />
+		element: (field) => (
+			<Textarea {...field} placeholder='Your Message' rows={5} />
 		),
 		name: "message",
 	},

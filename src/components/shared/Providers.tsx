@@ -7,6 +7,8 @@ import { User, onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { Provider as ReduxProvider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ConfirmModal from "@/components/shared/ConfirmModal";
+import ErrorModal from "@/components/shared/ErrorModal";
 const client = new QueryClient();
 
 const Observer = () => {
@@ -30,6 +32,8 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
 			<ReduxProvider store={store}>
 				<Observer />
 				{children}
+				<ConfirmModal />
+				<ErrorModal />
 			</ReduxProvider>
 		</QueryClientProvider>
 	);
