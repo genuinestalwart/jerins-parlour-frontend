@@ -14,6 +14,7 @@ const tabs = ["login", "register"];
 
 const LoginPage = () => {
 	const [activeTab, setActiveTab] = useState("login");
+	const [disabled, setDisabled] = useState(false);
 	const router = useRouter();
 	const {
 		loading,
@@ -42,6 +43,7 @@ const LoginPage = () => {
 	);
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
+		setDisabled(true);
 		const { email, name, password } = values;
 
 		try {
@@ -57,6 +59,7 @@ const LoginPage = () => {
 		} catch (error: any) {
 			toast(error.code.split("/")[1].replaceAll("-", " "));
 			setLoading(false);
+			setDisabled(false);
 		}
 	};
 
@@ -80,7 +83,7 @@ const LoginPage = () => {
 							<LoginForm
 								activeTab={activeTab}
 								formSchema={formSchema}
-								loading={loading || isLoading}
+								loading={disabled || loading || isLoading}
 								onSubmit={onSubmit}
 								setActiveTab={setActiveTab}
 							/>
@@ -88,7 +91,10 @@ const LoginPage = () => {
 					))}
 				</Tabs>
 
-				<LoginWith loading={loading || isLoading} />
+				<LoginWith
+					loading={disabled || loading || isLoading}
+					setDisabled={setDisabled}
+				/>
 			</main>
 		</>
 	);

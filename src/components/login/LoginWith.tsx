@@ -7,11 +7,18 @@ import { toast } from "sonner";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import Spinner from "@/components/shared/Spinner";
 
-const LoginWith = ({ loading }: { loading: boolean }) => {
+const LoginWith = ({
+	loading,
+	setDisabled,
+}: {
+	loading: boolean;
+	setDisabled: Function;
+}) => {
 	const { loginWithGoogle, setLoading } = useAuth();
 	const axiosSecure = useAxiosSecure();
 
 	const handleGoogle = async () => {
+		setDisabled(true);
 		try {
 			const res = await loginWithGoogle();
 			const { email, displayName: name, uid } = res.user;
