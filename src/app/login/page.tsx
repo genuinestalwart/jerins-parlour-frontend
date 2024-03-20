@@ -83,7 +83,9 @@ const LoginPage = () => {
 							<LoginForm
 								activeTab={activeTab}
 								formSchema={formSchema}
-								loading={disabled || loading || isLoading}
+								loading={
+									disabled || loading || isLoading || user
+								}
 								onSubmit={onSubmit}
 								setActiveTab={setActiveTab}
 							/>
@@ -92,7 +94,7 @@ const LoginPage = () => {
 				</Tabs>
 
 				<LoginWith
-					loading={disabled || loading || isLoading}
+					loading={disabled || loading || isLoading || user}
 					setDisabled={setDisabled}
 				/>
 			</main>

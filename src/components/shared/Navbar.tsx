@@ -9,6 +9,7 @@ import {
 import useAuth from "@/hooks/useAuth";
 import Spinner from "@/components/shared/Spinner";
 import useAdmin from "@/hooks/useAdmin";
+import { usePathname } from "next/navigation";
 
 interface Props {
 	navItems: Array<React.ReactNode>;
@@ -16,6 +17,7 @@ interface Props {
 	setOpen: (open: boolean) => void;
 }
 const Navbar: React.FC<Props> = ({ navItems, open, setOpen }) => {
+	const pathname = usePathname();
 	const { loading, logoutUser, user } = useAuth();
 	const [isAdmin, isLoading] = useAdmin();
 
@@ -39,7 +41,7 @@ const Navbar: React.FC<Props> = ({ navItems, open, setOpen }) => {
 				{dashLink}
 			</div>
 
-			{loading || isLoading ? (
+			{loading || isLoading || (pathname === "/login" && user) ? (
 				<Spinner className='fill-primary h-8 w-8' />
 			) : user ? (
 				<Button onClick={() => logoutUser()}>Logout</Button>
