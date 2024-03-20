@@ -57,6 +57,10 @@ const ManageServicesPage = () => {
 		<section className='p-8'>
 			{editOpen ? (
 				<ServiceForm
+					confirmData={{
+						description: "This will update the service details.",
+						title: "Are you sure you want to save the changes?",
+					}}
 					dv={item}
 					editOpen={editOpen}
 					handleConfirm={handleConfirm}

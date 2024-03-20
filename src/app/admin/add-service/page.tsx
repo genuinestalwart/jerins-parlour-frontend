@@ -28,6 +28,10 @@ const AddServicePage = () => {
 	return (
 		<section className='p-8'>
 			<ServiceForm
+				confirmData={{
+					description: "This will add a new service to the database.",
+					title: "Are you sure you want to add this item?",
+				}}
 				dv={{ description: "", title: "" }}
 				editOpen={false}
 				handleConfirm={handleConfirm}

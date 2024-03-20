@@ -13,18 +13,20 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Spinner from "@/components/shared/Spinner";
 
-const LoginForm = ({
-	activeTab,
-	formSchema,
-	loading,
-	onSubmit,
-	setActiveTab,
-}: {
+interface Props {
 	activeTab: string;
 	formSchema: any;
 	loading: boolean;
 	onSubmit: SubmitHandler<any>;
 	setActiveTab: Function;
+}
+
+const LoginForm: React.FC<Props> = ({
+	activeTab,
+	formSchema,
+	loading,
+	onSubmit,
+	setActiveTab,
 }) => {
 	const login = activeTab === "login";
 

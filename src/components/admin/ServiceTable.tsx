@@ -1,16 +1,13 @@
 import { Button } from "@/components/ui/button";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/components/ui/table";
-import { Pencil, Trash2 } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "@/hooks/useAxiosSecure";
+import { Table, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import useRedux from "@/hooks/useRedux";
+import ServiceTableBody from "@/components/admin/ServiceTableBody";
+
+interface Props {
+	loading: boolean;
+	onEdit: Function;
+	handleDelete: Function;
+}
 
 interface Item {
 	_id: string;
@@ -18,25 +15,8 @@ interface Item {
 	title: string;
 }
 
-const ServiceTable = ({
-	loading,
-	onEdit,
-	handleDelete,
-}: {
-	loading: boolean;
-	onEdit: Function;
-	handleDelete: Function;
-}) => {
-	const axiosSecure = useAxiosSecure();
+const ServiceTable: React.FC<Props> = ({ loading, onEdit, handleDelete }) => {
 	const { setConfirmData, setConfirmOpen } = useRedux();
-
-	const { data = [], refetch } = useQuery({
-		queryKey: ["services"],
-		queryFn: async () => {
-			const res = await axiosSecure.get(`/services`);
-			return res.data;
-		},
-	});
 
 	const onDelete = (i: Item, r: Function) => {
 		setConfirmData({
@@ -59,34 +39,11 @@ const ServiceTable = ({
 				</TableRow>
 			</TableHeader>
 
-			<TableBody>
-				{data.toReversed().map((item: Item, i: number) => (
-					<TableRow key={i}>
-						<TableCell colSpan={2}>{item.title}</TableCell>
-						<TableCell colSpan={4}>{item.description}</TableCell>
-
-						<TableCell align='center'>
-							<Button
-								disabled={loading}
-								onClick={() => onEdit(item)}
-								size='icon'
-								variant='secondary'>
-								<Pencil />
-							</Button>
-						</TableCell>
-
-						<TableCell align='center'>
-							<Button
-								disabled={loading}
-								onClick={() => onDelete(item, refetch)}
-								size='icon'
-								variant='destructive'>
-								<Trash2 />
-							</Button>
-						</TableCell>
-					</TableRow>
-				))}
-			</TableBody>
+			<ServiceTableBody
+				loading={loading}
+				onEdit={onEdit}
+				onDelete={onDelete}
+			/>
 		</Table>
 	);
 };

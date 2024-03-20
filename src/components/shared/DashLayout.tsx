@@ -4,21 +4,13 @@ import Sidebar from "@/components/shared/Sidebar";
 import NavLink from "@/components/shared/NavLink";
 import { useState } from "react";
 
-interface Links {
-	icon: React.ReactNode;
-	path: string;
-	text: string;
+interface Props {
+	children: React.ReactNode;
+	navLinks: Array<{ icon: React.ReactNode; path: string; text: string }>;
+	username: string | null;
 }
 
-const DashLayout = ({
-	children,
-	navLinks,
-	username,
-}: {
-	children: React.ReactNode;
-	navLinks: Array<Links>;
-	username: string | null;
-}) => {
+const DashLayout: React.FC<Props> = ({ children, navLinks, username }) => {
 	const [open, setOpen] = useState(false);
 	const pathname = usePathname();
 	const text = navLinks.find((item) => item.path === pathname)?.text || "";

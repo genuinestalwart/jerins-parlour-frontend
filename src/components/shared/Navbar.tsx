@@ -10,15 +10,12 @@ import useAuth from "@/hooks/useAuth";
 import Spinner from "@/components/shared/Spinner";
 import useAdmin from "@/hooks/useAdmin";
 
-const Navbar = ({
-	navItems,
-	open,
-	setOpen,
-}: {
+interface Props {
 	navItems: Array<React.ReactNode>;
 	open: boolean;
 	setOpen: (open: boolean) => void;
-}) => {
+}
+const Navbar: React.FC<Props> = ({ navItems, open, setOpen }) => {
 	const { loading, logoutUser, user } = useAuth();
 	const [isAdmin, isLoading] = useAdmin();
 

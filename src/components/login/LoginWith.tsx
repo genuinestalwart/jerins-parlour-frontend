@@ -7,13 +7,12 @@ import { toast } from "sonner";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import Spinner from "@/components/shared/Spinner";
 
-const LoginWith = ({
-	loading,
-	setDisabled,
-}: {
+interface Props {
 	loading: boolean;
 	setDisabled: Function;
-}) => {
+}
+
+const LoginWith: React.FC<Props> = ({ loading, setDisabled }) => {
 	const { loginWithGoogle, setLoading } = useAuth();
 	const axiosSecure = useAxiosSecure();
 

@@ -10,15 +10,13 @@ import {
 	SheetPortal,
 } from "@/components/ui/sheet";
 
-const Sidebar = ({
-	navItems,
-	open,
-	setOpen,
-}: {
+interface Props {
 	navItems: Array<React.ReactNode>;
 	open: boolean;
 	setOpen: (open: boolean) => void;
-}) => {
+}
+
+const Sidebar: React.FC<Props> = ({ navItems, open, setOpen }) => {
 	return (
 		<header className='flex md:flex-col h-16 md:h-full items-center justify-between md:justify-normal px-6 md:px-0 md:py-4 md:space-y-8 md:w-[30%] lg:w-1/4'>
 			<Image

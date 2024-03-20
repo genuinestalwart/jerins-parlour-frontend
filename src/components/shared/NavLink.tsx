@@ -3,17 +3,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MouseEventHandler } from "react";
 
-const NavLink = ({
-	children,
-	className,
-	href,
-	onClick,
-}: {
+interface Props {
 	children: React.ReactNode;
 	className: Function;
 	href: string;
 	onClick: MouseEventHandler<HTMLAnchorElement>;
-}) => {
+}
+
+const NavLink: React.FC<Props> = ({ children, className, href, onClick }) => {
 	return (
 		<Link
 			className={className(href === usePathname())}

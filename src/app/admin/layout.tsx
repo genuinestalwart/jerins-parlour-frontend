@@ -11,7 +11,6 @@ import DashLayout from "@/components/shared/DashLayout";
 const navLinks = [
 	{ icon: <Scroll />, path: "/admin/orders", text: "Order List" },
 	{ icon: <Plus />, path: "/admin/add-service", text: "Add Service" },
-	{ icon: <ShieldPlus />, path: "/admin/make-admin", text: "Make Admin" },
 	{
 		icon: <Component />,
 		path: "/admin/manage-services",

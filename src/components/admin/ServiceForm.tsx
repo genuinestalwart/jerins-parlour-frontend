@@ -8,9 +8,13 @@ import { z } from "zod";
 import ServiceFormCard from "@/components/admin/ServiceFormCard";
 import useRedux from "@/hooks/useRedux";
 
-interface Item {
-	description: string;
-	title: string;
+interface Props {
+	confirmData: { description: string; title: string };
+	dv: { description: string; title: string };
+	editOpen: boolean;
+	loading: boolean;
+	handleConfirm: Function;
+	setEditOpen: Function;
 }
 
 const formSchema = z.object({
@@ -18,29 +22,13 @@ const formSchema = z.object({
 	title: z.coerce.string().trim().min(5).max(50),
 });
 
-const data = [
-	{
-		description: "This will add a new service to the database.",
-		title: "Are you sure you want to add this item?",
-	},
-	{
-		description: "This will update the service details.",
-		title: "Are you sure you want to save the changes?",
-	},
-];
-
-const ServiceForm = ({
+const ServiceForm: React.FC<Props> = ({
+	confirmData,
 	dv,
 	editOpen,
 	loading,
 	handleConfirm,
 	setEditOpen,
-}: {
-	dv: Item;
-	editOpen: boolean;
-	loading: boolean;
-	handleConfirm: Function;
-	setEditOpen: Function;
 }) => {
 	const form = useForm<z.infer<typeof formSchema>>({
 		defaultValues: { description: dv.description, title: dv.title },
@@ -53,7 +41,7 @@ const ServiceForm = ({
 	const onSubmit = async (v: object) => {
 		setConfirmData({
 			confirm: <Button onClick={() => handleConfirm(v)}>Confirm</Button>,
-			...data[editOpen ? 1 : 0],
+			...confirmData,
 		});
 
 		setConfirmOpen(true);
