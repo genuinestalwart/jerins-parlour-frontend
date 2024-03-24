@@ -13,7 +13,7 @@ interface Props {
 const DashLayout: React.FC<Props> = ({ children, navLinks, username }) => {
 	const [open, setOpen] = useState(false);
 	const pathname = usePathname();
-	const text = navLinks.find((item) => item.path === pathname)?.text || "";
+	const text = navLinks.find((item) => item.path === pathname)?.text!;
 
 	const navItems = navLinks.map((item, i) => (
 		<NavLink
@@ -33,7 +33,7 @@ const DashLayout: React.FC<Props> = ({ children, navLinks, username }) => {
 	));
 
 	return (
-		<div className='md:flex md:h-screen 2xl:max-h-[810px]'>
+		<div className='md:flex md:h-screen'>
 			<Sidebar navItems={navItems} open={open} setOpen={setOpen} />
 
 			<main className='bg-dashboard md:h-full md:overflow-y-auto md:w-[70%] lg:w-3/4'>

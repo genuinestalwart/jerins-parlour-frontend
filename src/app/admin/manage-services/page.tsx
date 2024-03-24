@@ -8,13 +8,15 @@ import useRedux from "@/hooks/useRedux";
 interface Item {
 	_id: string;
 	description: string;
+	price: number;
 	title: string;
 }
 
 const ManageServicesPage = () => {
 	const [editOpen, setEditOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
-	const [item, setItem] = useState({ _id: "", description: "", title: "" });
+	const dv = { _id: "", description: "", price: 1, title: "" };
+	const [item, setItem] = useState(dv);
 	const axiosSecure = useAxiosSecure();
 	const { setConfirmOpen, setErrorData, setErrorOpen } = useRedux();
 
@@ -23,7 +25,7 @@ const ManageServicesPage = () => {
 		setConfirmOpen(false);
 
 		try {
-			await axiosSecure.patch(`/services/${item._id}`, values);
+			await axiosSecure.patch(`/services/${item?._id}`, values);
 			setEditOpen(false);
 		} catch (error) {
 			setErrorData("Unable to add the service to the list");

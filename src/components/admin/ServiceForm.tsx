@@ -8,9 +8,16 @@ import { z } from "zod";
 import ServiceFormCard from "@/components/admin/ServiceFormCard";
 import useRedux from "@/hooks/useRedux";
 
+interface Item {
+	_id: string;
+	description: string;
+	price: number;
+	title: string;
+}
+
 interface Props {
 	confirmData: { description: string; title: string };
-	dv: { description: string; title: string };
+	dv: Item;
 	editOpen: boolean;
 	loading: boolean;
 	handleConfirm: Function;
@@ -19,6 +26,7 @@ interface Props {
 
 const formSchema = z.object({
 	description: z.coerce.string().trim().min(50).max(512),
+	price: z.coerce.number().min(1),
 	title: z.coerce.string().trim().min(5).max(50),
 });
 
@@ -30,8 +38,9 @@ const ServiceForm: React.FC<Props> = ({
 	handleConfirm,
 	setEditOpen,
 }) => {
+	const { description, price, title } = dv;
 	const form = useForm<z.infer<typeof formSchema>>({
-		defaultValues: { description: dv.description, title: dv.title },
+		defaultValues: { description, price, title },
 		resolver: zodResolver(formSchema),
 	});
 
@@ -49,7 +58,9 @@ const ServiceForm: React.FC<Props> = ({
 
 	return (
 		<Form {...form}>
-			<form className='space-y-6' onSubmit={form.handleSubmit(onSubmit)}>
+			<form
+				className='space-y-6 md:w-1/2'
+				onSubmit={form.handleSubmit(onSubmit)}>
 				<ServiceFormCard form={form} loading={loading} />
 
 				<div className='flex justify-between'>

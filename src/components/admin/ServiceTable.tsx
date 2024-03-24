@@ -34,6 +34,7 @@ const ServiceTable: React.FC<Props> = ({ loading, onEdit, handleDelete }) => {
 				<TableRow>
 					<TableHead colSpan={2}>Title</TableHead>
 					<TableHead colSpan={4}>Description</TableHead>
+					<TableHead>Price</TableHead>
 					<TableHead>Edit</TableHead>
 					<TableHead>Delete</TableHead>
 				</TableRow>

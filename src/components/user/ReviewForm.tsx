@@ -41,7 +41,7 @@ const ReviewForm: React.FC<Props> = ({
 	setEditMode,
 }) => {
 	const form = useForm<z.infer<typeof formSchema>>({
-		defaultValues: { review: data.review || "", status: data.status || "" },
+		defaultValues: { review: data.review!, status: data.status! },
 		resolver: zodResolver(formSchema),
 	});
 

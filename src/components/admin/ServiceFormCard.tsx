@@ -17,7 +17,7 @@ interface Props {
 interface Field {
 	element: (field: any, loading: boolean) => React.ReactNode;
 	label: string;
-	name: "description" | "title";
+	name: "description" | "price" | "title";
 }
 
 const formFields: Field[] = [
@@ -25,6 +25,13 @@ const formFields: Field[] = [
 		element: (field, loading) => <Input disabled={loading} {...field} />,
 		label: "Service Title",
 		name: "title",
+	},
+	{
+		element: (field, loading) => (
+			<Input disabled={loading} {...field} type='number' />
+		),
+		label: "Price in USD",
+		name: "price",
 	},
 	{
 		element: (field, loading) => (

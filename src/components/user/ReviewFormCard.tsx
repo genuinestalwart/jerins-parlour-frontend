@@ -10,6 +10,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Rating, RoundedStar } from "@smastrom/react-rating";
 
+interface Props {
+	form: any;
+	loading: boolean;
+	rating: number;
+	setRating: Function;
+}
+
 interface Field {
 	element: (field: any, loading: boolean) => React.ReactNode;
 	label: string;
@@ -37,16 +44,11 @@ const formFields: Field[] = [
 	},
 ];
 
-const ReviewFormCard = ({
+const ReviewFormCard: React.FC<Props> = ({
 	form,
 	loading,
 	rating,
 	setRating,
-}: {
-	form: any;
-	loading: boolean;
-	rating: number;
-	setRating: Function;
 }) => {
 	return (
 		<Card className='border-none pt-8 rounded-xl shadow-none'>

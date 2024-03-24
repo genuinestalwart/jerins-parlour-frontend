@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Data {
+	cancel?: React.ReactNode;
 	confirm: React.ReactNode;
 	description: string;
 	title: string;
@@ -22,6 +23,7 @@ const confirmSlice = createSlice({
 	name: "confirm",
 	reducers: {
 		setConfirmData: (state, action: PayloadAction<Data>) => {
+			state.cancel = action.payload.cancel;
 			state.confirm = action.payload.confirm;
 			state.description = action.payload.description;
 			state.title = action.payload.title;

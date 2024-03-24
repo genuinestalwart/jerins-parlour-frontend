@@ -3,6 +3,7 @@ import { setConfirmData, setConfirmOpen } from "@/slices/confirmSlice";
 import { setErrorData, setErrorOpen } from "@/slices/errorSlice";
 
 interface confirmData {
+	cancel?: React.ReactNode;
 	confirm: React.ReactNode;
 	description: string;
 	title: string;

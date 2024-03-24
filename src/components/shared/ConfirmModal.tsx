@@ -15,7 +15,7 @@ import { setConfirmOpen } from "@/slices/confirmSlice";
 
 const ConfirmModal = () => {
 	const dispatch = useAppDispatch();
-	const { confirm, description, open, title } = useAppSelector(
+	const { cancel, confirm, description, open, title } = useAppSelector(
 		(state) => state.confirm
 	);
 
@@ -36,11 +36,13 @@ const ConfirmModal = () => {
 					</AlertDialogHeader>
 
 					<AlertDialogFooter>
-						<Button
-							onClick={() => dispatch(setConfirmOpen(false))}
-							variant='secondary'>
-							Cancel
-						</Button>
+						{cancel || (
+							<Button
+								onClick={() => dispatch(setConfirmOpen(false))}
+								variant='secondary'>
+								Cancel
+							</Button>
+						)}
 
 						{confirm}
 					</AlertDialogFooter>

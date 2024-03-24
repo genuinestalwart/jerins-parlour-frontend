@@ -13,6 +13,7 @@ interface Props {
 interface Item {
 	_id: string;
 	description: string;
+	price: number;
 	title: string;
 }
 
@@ -22,8 +23,8 @@ const ServiceTableBody: React.FC<Props> = ({ loading, onEdit, onDelete }) => {
 	const { data = [], refetch } = useQuery({
 		queryKey: ["services"],
 		queryFn: async () => {
-			const res = await axiosSecure.get(`/services`);
-			return res.data;
+			const { data } = await axiosSecure.get("/services");
+			return data;
 		},
 	});
 
@@ -33,6 +34,7 @@ const ServiceTableBody: React.FC<Props> = ({ loading, onEdit, onDelete }) => {
 				<TableRow key={i}>
 					<TableCell colSpan={2}>{item.title}</TableCell>
 					<TableCell colSpan={4}>{item.description}</TableCell>
+					<TableCell align='right'>${item.price}</TableCell>
 
 					<TableCell align='center'>
 						<Button

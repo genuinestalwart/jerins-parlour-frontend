@@ -32,7 +32,7 @@ const AddServicePage = () => {
 					description: "This will add a new service to the database.",
 					title: "Are you sure you want to add this item?",
 				}}
-				dv={{ description: "", title: "" }}
+				dv={{ _id: "", description: "", price: 1, title: "" }}
 				editOpen={false}
 				handleConfirm={handleConfirm}
 				loading={loading}
